@@ -26,7 +26,7 @@ export default function Home() { // "async は非同期処理 → APIを使う�
           A simple authentication service
         </p>
         <div>
-          <LoginButton  asChild>
+          <LoginButton asChild>
             <Button variant="secondary" size="lg">
               サインイン
             </Button>

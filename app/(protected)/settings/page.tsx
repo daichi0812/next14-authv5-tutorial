@@ -3,7 +3,7 @@
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useTransition, useState } from "react"
+import { useTransition, useState, useEffect } from "react"
 import { useSession } from "next-auth/react"
 
 import { Switch } from "@/components/ui/switch";
@@ -58,6 +58,17 @@ const SettingsPage = () => {
     });
 
     console.log(user?.isOAuth)
+
+    useEffect(() => {
+        if (user) {
+          form.reset({
+            name: user.name || "",
+            email: user.email || "",
+            role: user.role || "",
+            isTwoFactorEnabled: user.isTwoFactorEnabled || false,
+          });
+        }
+      }, [user, form]);
 
     const onSubmit = (values: z.infer<typeof SettingsSchema>) => {
         startTransition(() => {
@@ -220,7 +231,7 @@ const SettingsPage = () => {
                         </div>
                         <FormError message={error} />
                         <FormSuccess message={success} />
-                        <Button
+                        <Button 
                             disabled={isPending}
                             type="submit"
                         >
