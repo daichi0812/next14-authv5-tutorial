@@ -17,11 +17,10 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await auth();
 
   //プリズマで使うよう？　上のRootLayoutにasyncを追記する
   //const user = await db.user.findMany
-
-  const session = await auth();
 
   return (
     <SessionProvider session={session}>
